@@ -1,40 +1,66 @@
+let q = {
+    answer: null,
+    qValue: null,
+};
+
+let score = 0;
+
 function init() {
-    let button = document.querySelector('#find-reader');
-    button.addEventListener('click', getNewReader);
+    newQuestion();
+
+    let button = document.querySelector('#guess');
+    button.addEventListener('click', newQuestion);
+    button.addEventListener('click', checkAnswer);
 }
 
-function getNewReader() {
-    // 1. set up an XMLHttpRequest - use for AJAX requests
-    let request = new XMLHttpRequest(); // 'new' is a JS keywords
-    
-    // where do we make the request to?
-    request.open('GET', 'https://randomuser.me/api/?results=100');
-    // what do we do once the results load?
+function newQuestion() {
+    let request = new XMLHttpRequest();
+
+    request.open('GET', 'http://jservice.io/api/random');
     request.addEventListener('load', function () {
-        console.log('weve got mail')
-        // responseText is the place where the response is stored
-        // this is our JSON
-        // we can convert it into something JS with JSON.parse()
-        let response = JSON.parse(request.responseText);// convert from JSON to JS oject
+        console.log('here is the question:')
+        let response = JSON.parse(request.responseText);
+        let bloop = response[0];
+        console.log(bloop);
 
-        for (let i = 0; i < response.results.length; i++){
-        let user = response.results[i];
-        showPerson(user);
-        }
+        showQuestion(bloop);
+        q.answer = bloop.answer;
+        q.qValue = bloop.value;
     });
-    //go go go go go
+
     request.send();
-    console.log('mail sent');
+    console.log('question sent');
 }
 
- //now that we have this data, let's show it in the DOM
-function showPerson(loyalSubject) {
-    let name = document.createElement('li');
-    name.textContent = loyalSubject.name.first + ' ' + loyalSubject.name.last;
+function showQuestion(subject) {
+    let question = document.querySelector('#qText');
+    question.textContent = subject.question;
 
-    //add to DOM
-    let parent = document.querySelector('#folks');
-    parent.appendChild(name);
+    let category = document.querySelector('#cat');
+    category.textContent = subject.category.title;
+    // console.log(subject.category.title);
+
+    let value = document.querySelector('#point');
+    point.textContent = subject.value;
+}
+
+function checkAnswer() {
+    let textBox = document.querySelector('input');
+    let answer = textBox.value;
+    textBox.value = '';
+
+    // score = document.querySelector('#score');
+    // score.textContent = ;
+
+    if (answer === q.answer) {
+        console.log('Nice, you got it!')
+        score = score + q.qValue;
+    } else {
+        console.log('Nah, try again!')
+        score === score + 0;
+    }
+    console.log(answer);
+    console.log(score);
 }
 
 window.addEventListener('load', init);
