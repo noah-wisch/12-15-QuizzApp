@@ -22,21 +22,27 @@ body {
         border-radius:$border-radius;
         margin-right:$right-margin;
         padding:$padding;
+        font-size:1em;
         
     }
 
-    h3 {
+    #point {
+        background-color:$body-bg-color;
+        border-radius:$border-radius;
+        margin-right:$right-margin;
+        padding:$padding;
+        font-size:1em;
+    }
+
+    #qText {
         background-color:$body-bg-color;
         border-radius:$border-radius;
         margin-right:$right-margin;
         padding:$padding;
     }
 
-    p {
-        background-color:$body-bg-color;
-        border-radius:$border-radius;
-        margin-right:$right-margin;
-        padding:$padding;
+    #score {
+        
     }
 
     input {
@@ -56,3 +62,4 @@ body {
     }
 
 }
+ 

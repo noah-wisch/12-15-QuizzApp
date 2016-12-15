@@ -9,7 +9,7 @@ function init() {
     newQuestion();
 
     let button = document.querySelector('#guess');
-    button.addEventListener('click', newQuestion);
+    // button.addEventListener('click', newQuestion);
     button.addEventListener('click', checkAnswer);
 }
 
@@ -21,7 +21,7 @@ function newQuestion() {
         console.log('here is the question:')
         let response = JSON.parse(request.responseText);
         let bloop = response[0];
-        console.log(bloop);
+        console.log(bloop); //this shows the object in the console
 
         showQuestion(bloop);
         q.answer = bloop.answer;
@@ -55,12 +55,15 @@ function checkAnswer() {
     if (answer === q.answer) {
         console.log('Nice, you got it!')
         score = score + q.qValue;
+        document.querySelector('#score').textContent = score;
     } else {
         console.log('Nah, try again!')
         score === score + 0;
     }
     console.log(answer);
     console.log(score);
+
+    newQuestion();
 }
 
 window.addEventListener('load', init);
